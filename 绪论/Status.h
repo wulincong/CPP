@@ -11,6 +11,7 @@
 #define UNSUCCESS 0
 #define INFEASIBLE -1
 
+typedef int Status;
 
 #ifndef _MATH_H_
 #define OVERFLOW -2   //堆栈上溢
