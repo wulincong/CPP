@@ -1,7 +1,12 @@
 INCLUDE = -I../绪论
 
+CC = g++ -v
+
 main: main.cpp MGraph.o
-	g++ main.cpp MGraph.o $(INCLUDE) -o main
+	$(CC) main.cpp MGraph.o $(INCLUDE) -o main
 
 MGraph.o: MGraph.cpp
-	g++ -Wall -c MGraph.cpp -o MGraph
+	$(CC) -Wall -c MGraph.cpp -o MGraph.o $(INCLUDE)
+
+clean: 
+	rm MGraph.o

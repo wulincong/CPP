@@ -6,16 +6,16 @@
 #include <stdarg.h>
 
 
-#include "../Ð÷ÂÛ/Status.h"
+#include "Status.h"
 
-#include "../Ð÷ÂÛ/Scanf.c"
+//#include "Scanf.c"
 //#include "LinkQueue.c"
 
 
 #define INFINITY INT_MAX
 #define MAX_VERTEX_NUM 20
 
-typedef enum{DG, DN, UDG, UDN} GraphKind;
+typedef enum GraphKind {DG = 1, DN, UDG, UDN} GraphKind;
 typedef struct {} InfoType;
 typedef int VRType;
 typedef struct ArcCell{
@@ -30,11 +30,11 @@ typedef struct {
 	AdjMatrix arcs;
 	int vexnum,arcnum;
 	int IncInfo;
-	GraphKind kind;
+	enum GraphKind kind;
 } MGraph;
 
 //Status visited[MAX_VERTEX_NUM + 1];
-void (*VisitFunc)(VertexType_M e);
+//void (*VisitFunc)(VertexType_M e);
 
 Status CreateGraph(MGraph &G);
 Status CreateDG(MGraph &G);

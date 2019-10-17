@@ -25,7 +25,7 @@ typedef int Status;
     ;\
 }
 
-#define PressEnter\
+#define PressEnter \
 {\
     fflush(stdin);\
     printf("Press Enter...");\
