@@ -4,10 +4,7 @@
 #include "MGraph.h"
 #define OK 1
 
-<<<<<<< HEAD
-=======
 
->>>>>>> c9a32f99b459e16e4ef198baa5406d2b08afad6e
 Status CreateGraph(MGraph &G){
     printf("G.kind>>>"); 
     scanf("%d",&(G.kind));
@@ -29,31 +26,31 @@ Status CreateDG(MGraph &G){\
 
 Status CreateUDG(MGraph &G){
 	int i,a,b;
-	printf("ÇëÊäÈë¶¥µãÊýÁ¿>>>");
-	scanf("%d",&G.vexnum);//»ñµÃ¶¥µãÊýÁ¿ 
-	printf("ÇëÊäÈë±ßÊýÁ¿>>>");
+	printf("è¯·è¾“å…¥é¡¶ç‚¹æ•°é‡>>>");
+	scanf("%d",&G.vexnum);//èŽ·å¾—é¡¶ç‚¹æ•°é‡ 
+	printf("è¯·è¾“å…¥è¾¹æ•°é‡>>>");
 	scanf("%d",&G.arcnum);
-	printf("ÇëÊäÈë¶¥µãÐÅÏ¢>>>");
+	printf("è¯·è¾“å…¥é¡¶ç‚¹ä¿¡æ¯>>>");
 	for(i = 0;i<G.vexnum;i++){
-		printf("µÚ%d¸ö¶¥µã>>>",i); 
+		printf("ç¬¬%dä¸ªé¡¶ç‚¹>>>",i); 
 		scanf("%d",&G.vexs[i]);
 	}
 	for(i = 0;i<G.vecnum;i++){\
 		for(j = 0;j<G.vexnum;j++){
 			G.arcs[i][j] = 0;
 		}
-	}//for ³õÊ¼»¯¾ØÕó
+	}//for åˆå§‹åŒ–çŸ©é˜µ
 
-	printf("ÏÂÃæÊäÈë±ßÐÅÏ¢\n");
+	printf("ä¸‹é¢è¾“å…¥è¾¹ä¿¡æ¯\n");
 	for(i = 0;i<G.arcnum;i++){
-		printf("±ß%d>>>",i);
+		printf("è¾¹%d>>>",i);
 		scanf("%d,%d",&a,&b);
 		G.arcs[a][b] = 1;
 	}
 	return OK;
 }
 
-<<<<<<< HEAD
+
 Status CreateUDN(MGraph &G){
 	int i,j,k;
 	scanf("%d,%d",&G.vexnum,&G.arcnum);
@@ -66,6 +63,5 @@ Status CreateUDN(MGraph &G){
 	}
 	
 }
-=======
->>>>>>> c9a32f99b459e16e4ef198baa5406d2b08afad6e
+
 #endif
