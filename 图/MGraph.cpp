@@ -4,6 +4,10 @@
 #include "MGraph.h"
 #define OK 1
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> c9a32f99b459e16e4ef198baa5406d2b08afad6e
 Status CreateGraph(MGraph &G){
     printf("G.kind>>>"); 
     scanf("%d",&(G.kind));
@@ -49,6 +53,7 @@ Status CreateUDG(MGraph &G){
 	return OK;
 }
 
+<<<<<<< HEAD
 Status CreateUDN(MGraph &G){
 	int i,j,k;
 	scanf("%d,%d",&G.vexnum,&G.arcnum);
@@ -61,4 +66,6 @@ Status CreateUDN(MGraph &G){
 	}
 	
 }
+=======
+>>>>>>> c9a32f99b459e16e4ef198baa5406d2b08afad6e
 #endif
