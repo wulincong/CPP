@@ -1,7 +1,7 @@
 #ifndef STATUS_H
 #define STATUS_H
 
-//çŠ¶æ€ç   status code
+//×´Ì¬Âë  status code
 #define TRUE 1
 #define FALSE 0
 #define YES 1
@@ -14,8 +14,8 @@
 typedef int Status;
 
 #ifndef _MATH_H_
-#define OVERFLOW -2   //å †æ ˆä¸Šæº¢
-#define UNDERFLOW -3    //å †æ ˆä¸‹æº¢
+#define OVERFLOW -2   //¶ÑÕ»ÉÏÒç
+#define UNDERFLOW -3    //¶ÑÕ»ÏÂÒç
 #endif
 
 #define Wait(x)\
@@ -25,7 +25,7 @@ typedef int Status;
     ;\
 }
 
-#define PressEnter\
+#define PressEnter \
 {\
     fflush(stdin);\
     printf("Press Enter...");\
