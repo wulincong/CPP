@@ -5,13 +5,12 @@
 #include <stdlib.h>
 #include <stdarg.h>
 
-<<<<<<< HEAD
-#include "../Ğ÷ÂÛ/Status.h"
+
+#include "../ç»ªè®º/Status.h"
 //#include "Status.h"
-=======
 
 #include "Status.h"
->>>>>>> c9a32f99b459e16e4ef198baa5406d2b08afad6e
+
 
 //#include "Scanf.c"
 //#include "LinkQueue.c"
@@ -24,26 +23,19 @@ typedef enum GraphKind {DG = 1, DN, UDG, UDN} GraphKind;
 typedef struct {} InfoType;
 typedef int VRType;
 typedef struct ArcCell{
-	VRType adj;       // 0 1 ±íÊ¾ÓĞÎŞ±ß 
-	//InfoType info;        //±ß´æ´¢µÄĞÅÏ¢ 
+	VRType adj;       // 0 1 è¡¨ç¤ºæœ‰æ— è¾¹ 
+	//InfoType info;        //è¾¹å­˜å‚¨çš„ä¿¡æ¯ 
 } ArcCell;
 
 typedef ArcCell AdjMatrix[MAX_VERTEX_NUM+1][MAX_VERTEX_NUM+1];
 typedef int VertexType_M;
 typedef struct {
-<<<<<<< HEAD
-	VertexType_M vex[MAX_VERTEX_NUM+1];  //¶¥µãĞÅÏ¢ 
-	AdjMatrix arcs;           //±ßĞÅÏ¢ 
-	int vexnum,arcnum;        //¶¥µãÊıÁ¿£¬±ßÊıÁ¿ 
+	VertexType_M vex[MAX_VERTEX_NUM+1];  //é¡¶ç‚¹ä¿¡æ¯ 
+	AdjMatrix arcs;           //è¾¹ä¿¡æ¯ 
+	int vexnum,arcnum;        //é¡¶ç‚¹æ•°é‡ï¼Œè¾¹æ•°é‡ 
 //	int IncInfo;          
-	enum GraphKind kind;      //Í¼ÀàĞÍ 
-=======
-	VertexType_M vex[MAX_VERTEX_NUM+1];
-	AdjMatrix arcs;
-	int vexnum,arcnum;
-	int IncInfo;
-	enum GraphKind kind;
->>>>>>> c9a32f99b459e16e4ef198baa5406d2b08afad6e
+	enum GraphKind kind;      //å›¾ç±»å‹ 
+
 } MGraph;
 
 
@@ -58,8 +50,4 @@ Status CreateUDN(MGraph &G);
 
 #endif
 
-<<<<<<< HEAD
-=======
 
-#endif
->>>>>>> c9a32f99b459e16e4ef198baa5406d2b08afad6e
