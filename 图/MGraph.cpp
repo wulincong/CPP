@@ -25,7 +25,7 @@ Status CreateDG(MGraph &G){\
 }
 
 Status CreateUDG(MGraph &G){
-	int i,a,b;
+	int i,j,a,b;
 	printf("请输入顶点数量>>>");
 	scanf("%d",&G.vexnum);//获得顶点数量 
 	printf("请输入边数量>>>");
@@ -33,9 +33,9 @@ Status CreateUDG(MGraph &G){
 	printf("请输入顶点信息>>>");
 	for(i = 0;i<G.vexnum;i++){
 		printf("第%d个顶点>>>",i); 
-		scanf("%d",&G.vexs[i]);
+		scanf("%d",&G.vex[i]);
 	}
-	for(i = 0;i<G.vecnum;i++){\
+	for(i = 0;i<G.vexnum;i++){\
 		for(j = 0;j<G.vexnum;j++){
 			G.arcs[i][j] = 0;
 		}
@@ -54,14 +54,13 @@ Status CreateUDG(MGraph &G){
 Status CreateUDN(MGraph &G){
 	int i,j,k;
 	scanf("%d,%d",&G.vexnum,&G.arcnum);
-	for(i = 0;i<G.vexnum;i++)scanf("%d",&G.vexs[i]);
+	for(i = 0;i<G.vexnum;i++)scanf("%d",&G.vex[i]);
 	for(i = 0;i<G.vexnum;i++){
 		for(j = 0;j<G.vexnum,j++) G.arcs[i][j] = {INFINITY,NULL};
 	}
 	for(k = 0;k<G.arcnum;k++){
-		scanf()
+		scanf("%d");
 	}
-	
 }
 
 #endif

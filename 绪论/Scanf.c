@@ -29,12 +29,9 @@ int Scanf(FILE *fp,char *format, ...){
             }
         }
         
-        if (tmp == EOF)
-        {
-            break;
-        }
+        if (tmp == EOF) break;
 
-        if (format[k-1] == 'c')
+        if (format[k-1] == 'c') //识别%c
         {
             ch = va_arg(ap, char*);
 

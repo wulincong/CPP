@@ -6,8 +6,8 @@
 #include <stdarg.h>
 
 
-#include "../绪论/Status.h"
-//#include "Status.h"
+//#include "../绪论/Status.h"
+#include "Status.h"
 
 #include "Status.h"
 
@@ -49,5 +49,3 @@ Status CreateUDG(MGraph &G);
 Status CreateUDN(MGraph &G);
 
 #endif
-
-
