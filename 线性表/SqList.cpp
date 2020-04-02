@@ -1,19 +1,4 @@
-#include "stdlib.h" 
-#include "stdio.h"
-
-#define ERROR 0
-#define OK 1
-#define OVERFLOW -2
-#define INFEASIBLE -1
-typedef int Status;
-#define LIST_INIT_SIZE 100
-#define LISTINCREMENT 10
-
-typedef	 struct{
-	int *elem;
-	int length;
-	int listsize;
-} SqList;
+ï»¿#include "SqList.h"
 
 Status List_Init(SqList *L){
 	L->elem = (int *)(malloc(LIST_INIT_SIZE*sizeof(int)));
@@ -48,30 +33,66 @@ Status List_View(SqList *L){
 	printf("L->length = %d id = %d\n",L->length,&L->length);
 	printf("L->listsize = %d id = %d\n",L->listsize,&L->listsize);
 	for(i;i<L->length;i++){
-		printf("%d",*p);
+		printf("%d   ",*p);
 		printf("id = %d\n",p);
 		p++;
 	};
+	return OK;
 }
 
-main(){
+Status SqList_test(){
 	SqList MyList;
 	int m = 0,n,i,e;
 	char a;
 	Status S;
 	List_Init(&MyList);
-	printf("²åÈëÊı¾İ\n");
-	printf("ÇëÊäÈë²åÈëÊı¾İÊıÁ¿");
+	printf("Insert the Data\n");
+	printf("Please chose the number of data");
 	scanf("%d",&n);
 	while(m < n){
 		m++;
-		printf("ÇëÊäÈëÎ»ÖÃºÍÊıÖµ²¢ÓÃ,¸ô¿ª>>>");
+		printf("Use\",\" to split id and data >>>");
 		scanf("%d,%d",&i,&e);
 		S = List_Insert(&MyList,i,e);
 		if (S != OK){
-			printf("ÄúÊäÈëµÄÊı¾İÓĞÎó£¬ÇëÖØĞÂÊäÈë\n");
+			printf("ERROR\n");
 			m--;
 		}
 	};
 	List_View(&MyList);
+	return OK;
+}
+
+void Swap(int *List,int a,int b){
+	int i;
+	i = List[a];
+	List[a] = List[b];
+	List[b] = i;
+}
+
+//è®¾è®¡ä¸€ä¸ªç®—æ³•ï¼Œè®²Lä¸­æ‰€æœ‰å°äºè¡¨å¤´å…ƒç´ çš„æ•´æ•°æ”¾åœ¨å‰åŠéƒ¨åˆ†ï¼Œå¤§äºè¡¨å¤´å…ƒç´ çš„æ•´æ•°æ”¾åœ¨ååŠéƒ¨åˆ†
+Status HeadReverse(){
+	SqList L;
+	int l[] = {5,1,2,3,4,6,7,1,2};
+	L.elem = l;
+	L.length = 9;
+	L.listsize = 9;
+	int i = 0;
+	for (size_t j = 1; j < 9; j++)
+	{
+		if (L.elem[i] > L.elem[j] )
+		{
+			Swap(L.elem,i+1,j);
+			Swap(L.elem,i,i+1);
+			i = i+1;
+		}
+	}
+	List_View(&L);
+	return OK;
+}
+
+main(){
+	SqList_test();
+	HeadReverse();
+	return 0;
 }
