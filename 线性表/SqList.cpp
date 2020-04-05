@@ -91,8 +91,109 @@ Status HeadReverse(){
 	return OK;
 }
 
+
+typedef struct answer{
+	int max, min;
+} answer;
+
+/*
+answer Max_Min(SqList *L){
+	int l[L->length];
+	answer ans;
+	int len = 0;
+	for (size_t i = 0; i < L->length/2; i++)
+	{
+		if(L->elem[i]-L->elem[i+1]>0){
+			l[i] = L->elem[i];
+			l[i+1] = L->elem[i+1];
+			len++;
+		}
+		else{
+			l[i] = L->elem[i+1];
+			l[i+1] = L->elem[i];
+			len++;
+		}
+	}
+	while (len!=2){
+		for(size_t i = 0; i < len/4;i++){
+			i*=4;
+			if (l[i]-l[i+2]>0) l[i] = l[i+2];
+			if (l[i+1]-l[i+3]<0) l[i+1] = l[i+3];
+			len /= 2;
+		}
+	}
+	if(L->length % 2 == 1){
+		if(L->elem[L->length] < l[0]) l[0] = L->elem[L->length];
+		if(L->elem[L->length] > l[1]) l[1] = L->elem[L->length];
+	}
+	ans.min = l[0];
+	ans.max = l[1];
+	return ans;
+}
+*/
+
+answer Max_Min(SqList *L){
+	answer ans;
+	ans.min = ans.max = L->elem[0];
+	for (size_t i = 0; i < L->length; i++)
+	{
+		if (L->elem[i] < ans.min) ans.min = L->elem[i];
+		else if (L->elem[i] > ans.max) ans.max = L->elem[i];
+	}
+	return ans;
+}
+
+void test_Max_Min(){
+	SqList L;
+	int l[] = {5,1,2,3,4,6,7,1,2};
+	L.elem = l;
+	L.length = 9;
+	L.listsize = 9;
+	answer ans = Max_Min(&L);
+	printf("the min number of L is %d\n",ans.min);
+	printf("the max number of L is %d\n",ans.max);
+}
+
+Status answer_42_4(SqList *A,SqList *B){
+	int n = A->length < B->length ? A->length : B->length;
+	int flag = 0; // A == B flag = 0 A>B flag = 1 A<B flag = 2
+	for(int i = 0; i < n;i++){
+		if(A->elem[i] == B->elem[i]) continue;
+		else if(A->elem[i]>B->elem[i]) {
+			flag = 1;
+			printf("A>B\n");
+			break;}
+		else {
+			flag = 2;
+			printf("A<B\n");
+			break;
+		}
+	}
+	if (flag == 0 & A->length == B->length) printf("A = B\n");
+	else if (flag == 0 & A->length > B->length) printf("A>B\n");
+	else if (flag == 0 & A->length < B->length) printf("A<B\n");
+	return flag;
+}
+
+void test_answer_42_4(){
+	SqList A;
+	int l[] = {5,1,2,3,4,6,7,1,2};
+	A.elem = l;
+	A.length = 9;
+	A.listsize = 9;
+	SqList B;
+	int l2[] = {6,1,2,3,4,6,7,1,};
+	B.elem = l2;
+	B.length = 8;
+	B.listsize = 9;
+	answer_42_4(&A, &B);
+}
+
+
 main(){
-	SqList_test();
-	HeadReverse();
+	// SqList_test();
+	// HeadReverse();
+	// test_Max_Min();
+	test_answer_42_4();
 	return 0;
 }
