@@ -1,17 +1,84 @@
-﻿#include "SqList.h"
+#include "SqList.h"
 
-Status List_Init(SqList *L){
-	L->elem = (int *)(malloc(LIST_INIT_SIZE*sizeof(int)));
+Status 
+List_Init(SqList *L){
+	L->elem = (int *)(malloc(LIST_INIT_SIZE*sizeof(LElemType_Sq)));
+	if(!L->elem) exit(OVERFLOW);
 	L->length = 0;
 	L->listsize = LIST_INIT_SIZE;
 	return OK;
 }
 
-Status List_Insert(SqList *L,int i,int e){
+void 
+Clear_Sq(SqList *L){
+	L->length = 0;
+}
+
+void 
+DestroyList_Sq(SqList *L){
+	free(L->elem);
+	L->elem = NULL;
+	L->length = 0;
+	L->listsize = 0;
+}
+
+Status 
+ListEmpty_Sq(SqList *L){
+	return L->length == 0 ? YES : NO; 
+}
+
+int 
+ListLength_Sq(SqList *L){
+	return L->length;
+}
+
+Status 
+GetElem_Sq(SqList *L,int i,LElemType_Sq *e){
+	if (i<1 || i>L->length) return ERROR;
+	else *e = L->elem[i-1];
+	return OK;
+}
+
+int 
+LocateElem_Sq(SqList *L,LElemType_Sq *e){
+	int i = 1;
+	while (i<L->length && ! (L->elem[i-1] == *e)) ++i;
+	if (i<=L->length) return i;
+	else return 0;
+}
+
+Status 
+PriorElem_Sq(SqList *L,LElemType_Sq cur_elem,LElemType_Sq *pre_elem){
+	int i = 1;
+	if(L->elem[0] != cur_elem){
+		while (i<L->length && L->elem[i] != cur_elem) ++i;
+		if (i<L->length) {
+			*pre_elem = L->elem[i-1];
+			return OK;
+		}
+	}
+	return ERROR;
+}
+
+Status 
+NextElem_Sq(SqList *L,LElemType_Sq cur_elem,LElemType_Sq *next_elem){
+	int i = 1;
+	while (i < L->length && cur_elem != L->elem[i]) ++i;
+	if (i<L->length-1) {
+		*next_elem = L->elem[i+1];
+		return OK;
+	}
+	return ERROR;
+}
+
+
+
+Status 
+List_Insert(SqList *L,int i,int e){
 	int *p,*q,*newbase;
 	if(i<0||i>L->length+1) return ERROR;
 	if(L->length >= L->listsize){
-		newbase = (int *)(realloc(L->elem,(L->listsize + LISTINCREMENT)*sizeof(int)));
+		newbase = (int *)(realloc(L->elem,(L->listsize + LISTINCREMENT)*sizeof(LElemType_Sq)));
 		//if(!newbase)exit OVERFLOW;
 		L->elem = newbase;
 		L->listsize += LISTINCREMENT;
@@ -25,7 +92,8 @@ Status List_Insert(SqList *L,int i,int e){
 	return OK;
 }
 
-Status List_View(SqList *L){
+Status 
+List_View(SqList *L){
 	int *p;
 	int i = 0;
 	p = &L->elem[0];
@@ -40,7 +108,8 @@ Status List_View(SqList *L){
 	return OK;
 }
 
-Status SqList_test(){
+Status 
+SqList_test(){
 	SqList MyList;
 	int m = 0,n,i,e;
 	char a;
@@ -63,7 +132,8 @@ Status SqList_test(){
 	return OK;
 }
 
-void Swap(int *List,int a,int b){
+void 
+Swap(int *List,int a,int b){
 	int i;
 	i = List[a];
 	List[a] = List[b];
@@ -71,7 +141,8 @@ void Swap(int *List,int a,int b){
 }
 
 //设计一个算法，讲L中所有小于表头元素的整数放在前半部分，大于表头元素的整数放在后半部分
-Status HeadReverse(){
+Status 
+HeadReverse(){
 	SqList L;
 	int l[] = {5,1,2,3,4,6,7,1,2};
 	L.elem = l;
@@ -92,9 +163,6 @@ Status HeadReverse(){
 }
 
 
-typedef struct answer{
-	int max, min;
-} answer;
 
 /*
 answer Max_Min(SqList *L){
@@ -132,7 +200,8 @@ answer Max_Min(SqList *L){
 }
 */
 
-answer Max_Min(SqList *L){
+answer 
+Max_Min(SqList *L){
 	answer ans;
 	ans.min = ans.max = L->elem[0];
 	for (size_t i = 0; i < L->length; i++)
@@ -143,7 +212,8 @@ answer Max_Min(SqList *L){
 	return ans;
 }
 
-void test_Max_Min(){
+void 
+test_Max_Min(){
 	SqList L;
 	int l[] = {5,1,2,3,4,6,7,1,2};
 	L.elem = l;
@@ -154,7 +224,8 @@ void test_Max_Min(){
 	printf("the max number of L is %d\n",ans.max);
 }
 
-Status answer_42_4(SqList *A,SqList *B){
+Status 
+answer_42_4(SqList *A,SqList *B){
 	int n = A->length < B->length ? A->length : B->length;
 	int flag = 0; // A == B flag = 0 A>B flag = 1 A<B flag = 2
 	for(int i = 0; i < n;i++){
@@ -175,7 +246,8 @@ Status answer_42_4(SqList *A,SqList *B){
 	return flag;
 }
 
-void test_answer_42_4(){
+void 
+test_answer_42_4(){
 	SqList A;
 	int l[] = {5,1,2,3,4,6,7,1,2};
 	A.elem = l;
@@ -190,7 +262,7 @@ void test_answer_42_4(){
 }
 
 
-main(){
+int main(){
 	// SqList_test();
 	// HeadReverse();
 	// test_Max_Min();

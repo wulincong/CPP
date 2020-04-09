@@ -1,7 +1,7 @@
 #ifndef STATUS_H
 #define STATUS_H
 
-//×´Ì¬Âë  status code
+//×´Ì¬ï¿½ï¿½  status code
 #define TRUE 1
 #define FALSE 0
 #define YES 1
@@ -14,8 +14,8 @@
 typedef int Status;
 
 #ifndef _MATH_H_
-#define OVERFLOW -2   //¶ÑÕ»ÉÏÒç
-#define UNDERFLOW -3    //¶ÑÕ»ÏÂÒç
+#define OVERFLOW -2   //ï¿½ï¿½Õ»ï¿½ï¿½ï¿½ï¿½
+#define UNDERFLOW -3    //ï¿½ï¿½Õ»ï¿½ï¿½ï¿½ï¿½
 #endif
 
 #define Wait(x)\
