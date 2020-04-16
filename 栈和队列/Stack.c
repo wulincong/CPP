@@ -33,4 +33,15 @@ Status SqStack_Pop(SqStack *st){
 
 }
 
-
+int judge(char *ch){
+    int i = 0;
+    int I = 0, O = 0;
+    while(ch[i] != '\0'){
+        if(ch[i] == 'I')++I;
+        if(ch[i] == 'O')++O;
+        if(O>I)return 0;
+        ++i;
+    }
+    if(I != O)return 0;
+    else return 1;
+}

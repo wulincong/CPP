@@ -11,3 +11,5 @@ typedef struct LNode{
     DATATYPE data;
     struct LNode *next;
 }LNode,*LinkList;
+#include "SqList.h"
+

@@ -10,12 +10,12 @@
 #define SUCCESS 1
 #define UNSUCCESS 0
 #define INFEASIBLE -1
-
+#define OK 1
 typedef int Status;
 
 #ifndef _MATH_H_
-#define OVERFLOW -2   //��ջ����
-#define UNDERFLOW -3    //��ջ����
+#define OVERFLOW -2   
+#define UNDERFLOW -3   
 #endif
 
 #define Wait(x)\

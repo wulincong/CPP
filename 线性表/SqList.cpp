@@ -40,9 +40,9 @@ GetElem_Sq(SqList *L,int i,LElemType_Sq *e){
 }
 
 int 
-LocateElem_Sq(SqList *L,LElemType_Sq *e){
+LocateElem_Sq(SqList *L,LElemType_Sq e){
 	int i = 1;
-	while (i<L->length && ! (L->elem[i-1] == *e)) ++i;
+	while (i<=L->length && (L->elem[i-1] != e)) ++i;
 	if (i<=L->length) return i;
 	else return 0;
 }
@@ -89,6 +89,27 @@ List_Insert(SqList *L,int i,int e){
 	}
 	*p = e;
 	L->length++;
+	return OK;
+}
+
+Status 
+List_Delete_Sq(SqList *L,int i,LElemType_Sq *e){
+	LElemType_Sq *p,*q;
+	if(i<0 || i>L->length) return ERROR;
+	p = &L->elem[i-1];
+	*e = *p;
+	q = L->elem + L->length-1;
+	for (++p;p<=q;++p) *(p-1) = *p;
+	L->length -= 1;
+	return OK;
+}
+
+Status 
+ListTraverse_Sq(SqList *L){
+	for (size_t i = 0; i < L->length; i++)
+	{
+		printf("%d ",L->elem[i]);
+	}
 	return OK;
 }
 
@@ -246,7 +267,7 @@ answer_42_4(SqList *A,SqList *B){
 	return flag;
 }
 
-void 
+Status 
 test_answer_42_4(){
 	SqList A;
 	int l[] = {5,1,2,3,4,6,7,1,2};
@@ -259,13 +280,8 @@ test_answer_42_4(){
 	B.length = 8;
 	B.listsize = 9;
 	answer_42_4(&A, &B);
+	return OK;
+
 }
 
 
-int main(){
-	// SqList_test();
-	// HeadReverse();
-	// test_Max_Min();
-	test_answer_42_4();
-	return 0;
-}

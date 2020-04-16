@@ -1,5 +1,10 @@
 {
     "files.associations": {
-        "ostream": "cpp"
+        "ostream": "cpp",
+        "union.h": "c",
+        "sqlist.h": "c",
+        "stdlib.h": "c",
+        "stdio.h": "c",
+        "status.h": "c"
     }
 }
