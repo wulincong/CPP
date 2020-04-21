@@ -8,11 +8,10 @@
  * */
 #ifndef CPP_SEQBINARYTREE_H
 #define CPP_SEQBINARYTREE_H
-
-#include <stdio.h>
+#include <cstdio>
 #include <stdlib.h>
-#include "../绪论/Status.h"
-
+#include "Status.h"
+#include <math.h>
 #define MAX_TREE_SIZE 100
 
 typedef int Status;
