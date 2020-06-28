@@ -1,10 +1,6 @@
 #ifndef SCANF_C
 #define SCANF_C
-
-#include <stdio.h>
-#include <string.h>
-#include <stdarg.h>
-#include <ctype.h>
+#include "Scanf.h"
 
 int Scanf(FILE *fp,char *format, ...){
     int *i;

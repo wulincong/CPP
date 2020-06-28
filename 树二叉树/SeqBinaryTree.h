@@ -12,6 +12,7 @@
 #include <stdlib.h>
 #include "Status.h"
 #include <math.h>
+#include "Scanf.h"
 #define MAX_TREE_SIZE 100
 
 typedef int Status;
