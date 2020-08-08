@@ -5,6 +5,8 @@
         "sqlist.h": "c",
         "stdlib.h": "c",
         "stdio.h": "c",
-        "status.h": "c"
+        "status.h": "c",
+        "random": "cpp",
+        "limits": "cpp"
     }
 }
