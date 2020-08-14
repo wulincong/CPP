@@ -7,6 +7,12 @@
         "stdio.h": "c",
         "status.h": "c",
         "random": "cpp",
-        "limits": "cpp"
-    }
+        "limits": "cpp",
+        "cstdio": "cpp",
+        "deque": "cpp",
+        "string": "cpp",
+        "vector": "cpp",
+        "functional": "cpp"
+    },
+    "C_Cpp.errorSquiggles": "Disabled"
 }

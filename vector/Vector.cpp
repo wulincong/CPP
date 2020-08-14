@@ -16,6 +16,14 @@ void Vector<T>::expand(){
 }
 
 template <typename T>
+void Vector<T>::shrink(){
+    for(int i=_size; i < _capacity; i++)
+        _elem[i] = 0;
+}
+
+
+
+template <typename T>
 void Vector<T>::bubbleSort(Rank lo, Rank hi){
     int max;
     for(int i=hi; i>lo; i--){
@@ -45,8 +53,8 @@ Rank Vector<T>::insert ( Rank r, T const& e ){
 
 template <typename T>
 int Vector<T>::remove(Rank lo, Rank hi){
-    while (hi<_size) {_elem[lo++] = _elem[hi++];}
-    _size = lo;
+    while (hi<_size) {_elem[lo++] = _elem[hi++];}  //后面的整体迁移
+    _size = lo;  //改变size大小
     shrink();
     return hi-lo;
 }
@@ -80,19 +88,45 @@ Rank Vector<T>::find(T const& e,Rank lo, Rank hi) const{
 // }
 
 template <typename T>
-int Vector<T>::deduplicate(){
-    int oldSize = _size;
-    Rank i = 1;
+int Vector<T>::deduplicate(){  //无序去重 
+    int oldSize = _size;  //记录原规模
+    Rank i = 1;   //从编号1开始，这是第二个元素
     while(i < _size)
-        find(_elem[i],0,i) < 0 ? i++:remove(i);
+        find(_elem[i],0,i) < 0 ? i++:remove(i); //从当前元素的前面元素寻找相同元素，最多有一个
     return oldSize - _size;
 }
 
 template <typename T>
-void Vector<T>::traverse(void (*)( T&)){
-    for(int i = 0; i < _size;i++)visit(_elem[i]);
+void Vector<T>::traverse(void (*visit)( T&)){//借助函数指针进行遍历
+    for(int i = 0; i < _size;i++)visit(_elem[i]);  //遍历
 }
 
+template <typename T> template <typename VST> 
+void Vector<T>::traverse(VST& visitor){
+    for(int i = 0; i < _size;i++)visitor(_elem[i]); //遍历
+}
+
+//低效版有序去重
+template <typename T>
+int Vector<T>::uniquify(){ // 有序的去重
+    int oldSize = _size;
+    for(int i = 0; i < _size-1 ;i++){   //这里的size大小是动态变化的
+        _elem[i] == _elem[i+1] ? remove(i+1) : continue;  //如果后继元素相同就删除这个后继元素
+    }
+    return oldSize - _size;
+}
+
+
+//高效有序去重
+template <typename T>
+int Vector<T>::uniquify(){
+    Rank i = 0,j = 1;  //i是标记的非重复元素，j用于遍历其他元素
+    for(j;j<_size;j++){
+        if(_elem[i] != _elem[j]) _elem[++i] = _elem[j];//直到j遍历到相异的元素时，把它加入到前面
+    }
+    _size = ++i;shrink();
+    return j-i;
+}
 
 
 
