@@ -130,3 +130,17 @@ int Vector<T>::uniquify(){
 
 
 
+
+template <typename T>
+static Rank binSearch(T* A, T const& e,Rank lo, Rank hi){ //二分查找
+
+    while(lo < hi){      
+        Rank mi = (lo+hi)>>1;
+        if      (e < A[mi]) hi =mi;  //折半查找前面
+        else if (A[mi] < e) lo = mi + 1;   //折半查找后面
+        else return mi;   //mi处命中
+    }
+    return -1;   //查找失败
+}
+
+
