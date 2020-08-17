@@ -1,10 +1,12 @@
 #include "Vector.h"
 
+
 template <typename T>
 void Vector<T>::copyFrom (T const* A, Rank lo, Rank hi){
     _elem = new T[_capacity = 2*(hi-lo)];_size = 0;
     while (lo<hi) _elem[_size++] = A[lo++];
 }
+
 
 template <typename T>
 void Vector<T>::expand(){
@@ -15,6 +17,7 @@ void Vector<T>::expand(){
     delete[] oldElems; //释放空间 
 }
 
+
 template <typename T>
 void Vector<T>::shrink(){
     for(int i=_size; i < _capacity; i++)
@@ -24,8 +27,19 @@ void Vector<T>::shrink(){
 
 
 template <typename T>
+bool Random(T (*Rand) (void)){
+    int i;
+    for(i = 0;i < _sise;i++){
+        _elem[i] = Rand();
+    }
+}
+
+
+template <typename T>
 void Vector<T>::bubbleSort(Rank lo, Rank hi){
     int max;
+    int current_max;
+    int j;
     for(int i=hi; i>lo; i--){
         current_max = lo;
         for(j = lo; j<i; j++){
@@ -96,25 +110,25 @@ int Vector<T>::deduplicate(){  //无序去重
     return oldSize - _size;
 }
 
-template <typename T>
-void Vector<T>::traverse(void (*visit)( T&)){//借助函数指针进行遍历
-    for(int i = 0; i < _size;i++)visit(_elem[i]);  //遍历
-}
+template <typename T> void Vector<T>::traverse ( void ( *visit ) ( T& ) ) //借助函数指针机制
+{ for ( int i = 0; i < _size; i++ ) visit ( _elem[i] ); } //遍历向量
 
-template <typename T> template <typename VST> 
-void Vector<T>::traverse(VST& visitor){
-    for(int i = 0; i < _size;i++)visitor(_elem[i]); //遍历
-}
+template <typename T> template <typename VST> //元素类型、操作器
+void Vector<T>::traverse ( VST& visit ) //借助函数对象机制
+{ for ( int i = 0; i < _size; i++ ) visit ( _elem[i] ); } //遍历向量
+
+
+
 
 //低效版有序去重
-template <typename T>
-int Vector<T>::uniquify(){ // 有序的去重
-    int oldSize = _size;
-    for(int i = 0; i < _size-1 ;i++){   //这里的size大小是动态变化的
-        _elem[i] == _elem[i+1] ? remove(i+1) : continue;  //如果后继元素相同就删除这个后继元素
-    }
-    return oldSize - _size;
-}
+//template <typename T>
+//int Vector<T>::uniquify(){ // 有序的去重
+//    int oldSize = _size;
+//    for(int i = 0; i < _size-1 ;i++){   //这里的size大小是动态变化的
+//        _elem[i] == _elem[i+1] ? remove(i+1) : ;  //如果后继元素相同就删除这个后继元素
+//    }
+//    return oldSize - _size;
+//}
 
 
 //高效有序去重

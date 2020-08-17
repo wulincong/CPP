@@ -1,3 +1,4 @@
+#include <stdlib.h>
 typedef int Rank; //秩
 #define DEFAULT_CAPACITY 3 //默认的初始容量
 
@@ -27,6 +28,7 @@ public:
     //析构函数
     ~Vector(){delete [] _elem;} //释放内部空间
     //只读访问接口
+    bool Random( T (*Rand) (void));
     Rank size() const {return _size;}
     bool empty() const {return !_size;}
     Rank find(T const& e) const {return find(e,0,_size);}
@@ -50,7 +52,7 @@ public:
     int deduplicate(); //无序去重
     int uniquify(); //有序去重
  // 遍历
-    void traverse ( void (* ) ( T& ) ); //遍历（使用函数指针，只读或局部性修改）
+    void traverse ( void (*visit ) ( T& ) ); //遍历（使用函数指针，只读或局部性修改）
     template <typename VST> void traverse ( VST& ); //遍历（使用函数对象，可全局性修改）
 
-}
+};
