@@ -27,34 +27,78 @@ void Vector<T>::shrink(){
 
 
 template <typename T>
-bool Random(T (*Rand) (void)){
+bool Vector<T>::Random(T (*Rand) ()){
     int i;
-    for(i = 0;i < _sise;i++){
+    _size = _capacity;
+    for(i = 0;i < _size;i++){
         _elem[i] = Rand();
     }
+    return 1;
+}
+
+
+
+
+template <typename T>
+void Vector<T>::swap(Rank lo, Rank hi){
+    T temp = _elem[lo];
+    _elem[lo] = _elem[hi];
+    _elem[hi] = temp;
 }
 
 
 template <typename T>
-void Vector<T>::bubbleSort(Rank lo, Rank hi){
-    int max;
-    int current_max;
-    int j;
-    for(int i=hi; i>lo; i--){
-        current_max = lo;
-        for(j = lo; j<i; j++){
-            if(_elem[current_max] < _elem[current_max+1]) {
-                int tmp = _elem[current_max];
-                _elem[current_max] = _elem[current_max+1];
-                _elem[current_max+1] = tmp;
-            }// swap(max, max+1); 
-        }
-    }
+void Vector<T>::bubbleSort( Rank lo, Rank hi ) { //assert: 0 <= lo < hi <= size
+   for( Rank last = --hi; lo < hi; hi = last )
+      for( Rank i = last = lo; i < hi; i++ )
+         if( _elem[i] > _elem[i + 1] ) 
+            swap( i ,  i + 1  ); 
+}
+
+
+
+
+
+//template <typename T>
+//void Vector<T>::bubbleSort(Rank lo, Rank hi){
+//    int max;
+//    int current_max;
+//    int j;
+//    for(int i=hi; i>lo; i--){
+//        current_max = lo;
+//        for(j = lo; j<i; j++){
+//            if(_elem[current_max] < _elem[current_max+1]) {
+//                int tmp = _elem[current_max];
+//                _elem[current_max] = _elem[current_max+1];
+//                _elem[current_max+1] = tmp;
+//            }// swap(max, max+1); 
+//        }
+//    }
+//}
+
+
+template <typename T>
+void Vector<T>::sort(Rank lo,Rank hi){
+    bubbleSort(lo,hi);
 }
 
 
 template <typename T> T & Vector<T>::operator[]( Rank r) {return _elem[r];}
 template <typename T>const T & Vector<T>::operator[]( Rank r) const{return _elem[r];}
+
+
+
+//template <typename T> 
+//Vector<T>& Vector<T>::operater= (Vector<T> const& V){
+//    if(_elem) delete [] _elem;
+//    copyFrom(V._elem, 0, V._size);
+//    return *this;
+//}
+
+
+
+
+
 
 template <typename T> 
 Rank Vector<T>::insert ( Rank r, T const& e ){ 
@@ -110,12 +154,13 @@ int Vector<T>::deduplicate(){  //无序去重
     return oldSize - _size;
 }
 
-template <typename T> void Vector<T>::traverse ( void ( *visit ) ( T& ) ) //借助函数指针机制
+template <typename T> 
+void Vector<T>::traverse ( void ( *visit ) ( T ) ) //借助函数指针机制
 { for ( int i = 0; i < _size; i++ ) visit ( _elem[i] ); } //遍历向量
 
-template <typename T> template <typename VST> //元素类型、操作器
-void Vector<T>::traverse ( VST& visit ) //借助函数对象机制
-{ for ( int i = 0; i < _size; i++ ) visit ( _elem[i] ); } //遍历向量
+//template <typename T> template <typename VST> //元素类型、操作器
+//void Vector<T>::traverse ( VST& visit ) //借助函数对象机制
+//{ for ( int i = 0; i < _size; i++ ) visit ( _elem[i] ); } //遍历向量
 
 
 
@@ -144,7 +189,6 @@ int Vector<T>::uniquify(){
 
 
 
-
 template <typename T>
 static Rank binSearch(T* A, T const& e,Rank lo, Rank hi){ //二分查找
 
@@ -156,5 +200,14 @@ static Rank binSearch(T* A, T const& e,Rank lo, Rank hi){ //二分查找
     }
     return -1;   //查找失败
 }
+
+
+
+template <typename T>
+Rank Vector<T>::search(T const& e, Rank lo, Rank hi) const{
+    return binSearch(_elem, e, lo, hi);
+}
+
+
 
 
