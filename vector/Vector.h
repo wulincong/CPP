@@ -23,7 +23,7 @@ protected:
     void shellSort(Rank lo, Rank hi); //希尔排序
 public:
     Vector(int c = DEFAULT_CAPACITY, int s = 0, T v = 0)
-        {_elem = new T[_capacity = c];_size = 0;} // 容量为c 规模为s，所有元素初始为v
+        {_elem = (* T)malloc(sizeof(T));_size = 0;} // 容量为c 规模为s，所有元素初始为v
     Vector(T const* A,Rank n){copyFrom(A,0,n);}
     Vector(T const* A,Rank lo, Rank hi){copyFrom(A,lo,hi);}
     Vector(Vector<T> const& V){copyFrom(V._elem,0,V._size);}
@@ -31,6 +31,7 @@ public:
     //析构函数
     ~Vector(){delete [] _elem;} //释放内部空间
     //只读访问接口
+    void repeat(int [],int *);
     bool Random( T (*Rand) ());
     Rank size() const {return _size;}
     bool empty() const {return !_size;}

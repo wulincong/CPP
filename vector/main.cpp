@@ -21,18 +21,18 @@ int main(int argc, char *argv[]){
     void (*visit)(int) = visitInt;   
 //    printf("OK");
     int a[] = {1,2,3,4,5,6,7,8};
-    v = Vector<int>(10);
-    
-    printf("生成向量大小%d，空间10\n",v.size());
-    
-    printf("随机生成未知数填满空间\n");
-    v.Random(Rand);
-    v.traverse(visit);
-    printf("\n排序\n");
-    v.sort();
-
-    v.traverse(visit);
-    printf("\n");
-
-
+    if(argc > 1){
+        int size = atoi(argv[1]);
+        v = Vector<int>(size);
+        printf("生成向量空间%d\n",size);
+        printf("随机生成未知数填满空间\n");
+        v.Random(Rand);
+        v.traverse(visit);
+        v.traverse(visit);
+        printf("\n排序\n");
+        v.sort();
+     
+//        v.traverse(visit);
+        printf("\n");
+    }
 }

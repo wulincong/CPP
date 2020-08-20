@@ -47,34 +47,38 @@ void Vector<T>::swap(Rank lo, Rank hi){
 }
 
 
-template <typename T>
-void Vector<T>::bubbleSort( Rank lo, Rank hi ) { //assert: 0 <= lo < hi <= size
-   for( Rank last = --hi; lo < hi; hi = last )
-      for( Rank i = last = lo; i < hi; i++ )
-         if( _elem[i] > _elem[i + 1] ) 
-            swap( i ,  i + 1  ); 
-}
 
-
-
-
-
-//template <typename T>
-//void Vector<T>::bubbleSort(Rank lo, Rank hi){
-//    int max;
-//    int current_max;
-//    int j;
-//    for(int i=hi; i>lo; i--){
-//        current_max = lo;
-//        for(j = lo; j<i; j++){
-//            if(_elem[current_max] < _elem[current_max+1]) {
-//                int tmp = _elem[current_max];
-//                _elem[current_max] = _elem[current_max+1];
-//                _elem[current_max+1] = tmp;
-//            }// swap(max, max+1); 
-//        }
-//    }
+//template <typename T> //向量的起泡排序（基本版）
+//void Vector<T>::bubbleSort( Rank lo, Rank hi ) { //assert: 0 <= lo < hi <= size
+//   while( lo < --hi ) //反复起泡扫描
+//      for( Rank i = lo; i < hi; i++ ) //逐个检查相邻元素
+//         if( _elem[i] > _elem[i + 1] ) //若逆序，则
+//            swap( i, i + 1 ); //经交换使局部有序
 //}
+
+
+
+
+
+
+template <typename T>
+void Vector<T>::bubbleSort(Rank lo, Rank hi){
+    int max;
+    int current_max;
+    int j;
+    for(int i=--hi; lo < i; i--){
+        current_max = lo;
+        for(j = lo; j < i; j++){
+            if(_elem[j+1] < _elem[j]) {
+                int tmp = _elem[j];
+                //printf("tmp = %d",tmp);
+                _elem[j] = _elem[j+1];
+                _elem[j+1] = tmp;
+
+            }// swap(max, max+1); 
+        }
+    }
+}
 
 
 template <typename T>
@@ -154,9 +158,21 @@ int Vector<T>::deduplicate(){  //无序去重
     return oldSize - _size;
 }
 
+
+template <typename  T>
+void Vector<T>::repeat(int repeat_[],int *j){
+    Rank i = 1;
+    while(i<_size)
+        find(_elem[i],0,i) < 0 ? i++ : repeat_[*j++] = remove(i);
+}
+
+
+
+
+
 template <typename T> 
 void Vector<T>::traverse ( void ( *visit ) ( T ) ) //借助函数指针机制
-{ for ( int i = 0; i < _size; i++ ) visit ( _elem[i] ); } //遍历向量
+{ for ( int i = 0; i < _size; i++ ) visit(_elem[i]);} //遍历向量
 
 //template <typename T> template <typename VST> //元素类型、操作器
 //void Vector<T>::traverse ( VST& visit ) //借助函数对象机制
