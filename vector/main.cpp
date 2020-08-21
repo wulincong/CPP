@@ -1,13 +1,15 @@
+#include <iostream>
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "Vector_.h"
 
 Vector<int> v;
-
+using namespace std;
 template class Vector<int>;
 
 int RandInt( ){
-    return rand();
+    return (int)(rand() >> 20);
 }
 
 
@@ -27,10 +29,7 @@ int main(int argc, char *argv[]){
         printf("生成向量空间%d\n",size);
         printf("随机生成未知数填满空间\n");
         v.Random(Rand);
-        v.traverse(visit);
-        printf("\n"); 
-        v.traverse(visit);
-        printf("\n");
+        printf("size = %d\n",v.size()); 
         v.traverse(visit);
         printf("\n排序\n");
         v.sort();

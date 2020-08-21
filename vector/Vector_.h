@@ -32,6 +32,7 @@ bool Vector<T>::Random(T (*Rand) ()){
     _size = _capacity;
     for(i = 0;i < _size;i++){
         _elem[i] = Rand();
+        //std::cout << _elem[i] <<std::endl;
     }
     return 1;
 }
@@ -81,9 +82,55 @@ void Vector<T>::bubbleSort(Rank lo, Rank hi){
 }
 
 
+
+template <typename T>
+void Vector<T>::merge(Rank lo,Rank mi, Rank hi){
+    
+}
+
+
+template <typename T>
+void Vector<T>::selectionSort(Rank lo,Rank hi){//选择排序
+    int min,j,i;
+    for(i = lo; i < hi ; i++){
+        min = i ;
+        for( j = i; j < hi; j++){
+            if(_elem[j] < _elem[min]){
+                min = j;
+            }
+        }
+
+        T temp = _elem[min];
+        _elem[min] = _elem[i];
+        _elem[i] = temp;
+    }
+}
+
+template <typename T>
+void Vector<T>::insertSort(Rank lo,Rank hi){//插入排序
+    int i, j;
+    T temp;
+    for(i = lo+1;i < hi; i++){
+        j = i;
+        temp = _elem[i];
+        while(lo<j && temp < _elem[j-1]){
+            _elem[j] = _elem[j-1]; //如果大于temp，就把这个元素往后挪
+            j--;
+        }
+        _elem[j] = temp; //插入位置为j
+    }
+
+}
+
+
+
+
+
 template <typename T>
 void Vector<T>::sort(Rank lo,Rank hi){
-    bubbleSort(lo,hi);
+    //bubbleSort(lo,hi);
+    //selectionSort(lo,hi);
+    insertSort(lo,hi);
 }
 
 
@@ -171,11 +218,13 @@ void Vector<T>::repeat(int repeat_[],int *j){
 
 
 template <typename T> 
-void Vector<T>::traverse ( void ( *visit ) ( T ) ) //借助函数指针机制
-    { 
-    for ( int i = 0; i < _size; i++ ) 
-        printf("%d ",_elem[i]);
+void Vector<T>::traverse ( void ( *visit ) ( T ) ) {
+    std::cout << _elem << std::endl; 
+    for ( int i = 0; i < _size; i++ ) {
+        //printf("%d ",_elem[i]);
+        std::cout<< _elem[i] << " " ;
         //visit(_elem[i]);
+        }
     } //遍历向量
 
 //template <typename T> template <typename VST> //元素类型、操作器

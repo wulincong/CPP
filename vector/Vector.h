@@ -15,6 +15,7 @@ protected:
     void swap(Rank lo,Rank hi);
     Rank max(Rank lo, Rank hi);
     void selectionSort(Rank lo, Rank hi);
+    void insertSort(Rank lo,Rank hi);
     void merge(Rank lo, Rank mi,Rank hi); // 归并算法
     void mergeSort(Rank lo, Rank hi); // 归并排序算法
     void heapSort(Rank lo, Rank hi); // 堆排序
