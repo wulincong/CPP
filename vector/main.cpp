@@ -7,7 +7,7 @@ Vector<int> v;
 template class Vector<int>;
 
 int RandInt( ){
-    return rand()>>25;
+    return rand();
 }
 
 
@@ -28,11 +28,14 @@ int main(int argc, char *argv[]){
         printf("随机生成未知数填满空间\n");
         v.Random(Rand);
         v.traverse(visit);
+        printf("\n"); 
+        v.traverse(visit);
+        printf("\n");
         v.traverse(visit);
         printf("\n排序\n");
         v.sort();
      
-//        v.traverse(visit);
+        v.traverse(visit);
         printf("\n");
     }
 }
