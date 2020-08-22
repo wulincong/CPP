@@ -123,14 +123,32 @@ void Vector<T>::insertSort(Rank lo,Rank hi){//插入排序
 }
 
 
-
+template <typename T>
+void Vector<T>::shellSort(Rank lo,Rank hi){
+    int len = hi-lo;
+    int h = 1;
+    while(h<len/3)h = h*3 + 1;
+    while(h>=1){
+        for(int i = h;i < hi;i++){
+            for(int j = i; j >= h  ;j-=h){
+                if(_elem[j] < _elem[j-h]){
+                    T tmp = _elem[j];
+                    _elem[j] = _elem[j-h];
+                    _elem[j-h] = tmp;
+                }//if-swap
+            }//向前插入
+        }//h -> hi
+        h = h/3;
+    }
+}
 
 
 template <typename T>
 void Vector<T>::sort(Rank lo,Rank hi){
     //bubbleSort(lo,hi);
     //selectionSort(lo,hi);
-    insertSort(lo,hi);
+    //insertSort(lo,hi);
+    shellSort(lo,hi);
 }
 
 
