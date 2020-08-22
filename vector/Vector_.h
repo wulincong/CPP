@@ -26,16 +26,16 @@ void Vector<T>::shrink(){
 
 
 
-template <typename T>
-bool Vector<T>::Random(T (*Rand) ()){
-    int i;
-    _size = _capacity;
-    for(i = 0;i < _size;i++){
-        _elem[i] = Rand();
-        //std::cout << _elem[i] <<std::endl;
-    }
-    return 1;
-}
+// template <typename T>
+// bool Vector<T>::Random(T (*Rand) ()){
+//     int i;
+//     _size = _capacity;
+//     for(i = 0;i < _size;i++){
+//         _elem[i] = Rand();
+//         //std::cout << _elem[i] <<std::endl;
+//     }
+//     return 1;
+// }
 
 
 
@@ -217,15 +217,11 @@ void Vector<T>::repeat(int repeat_[],int *j){
 
 
 
-template <typename T> 
-void Vector<T>::traverse ( void ( *visit ) ( T ) ) {
-    std::cout << _elem << std::endl; 
-    for ( int i = 0; i < _size; i++ ) {
-        //printf("%d ",_elem[i]);
-        std::cout<< _elem[i] << " " ;
-        //visit(_elem[i]);
-        }
-    } //遍历向量
+// template <typename T> 
+// void Vector<T>::traverse ( void ( *visit ) ( T ) ) {
+//     //std::cout << _elem << std::endl; 
+//     for ( int i = 0; i < _size; i++ ) visit( _elem[i] );
+//     } //遍历向量
 
 //template <typename T> template <typename VST> //元素类型、操作器
 //void Vector<T>::traverse ( VST& visit ) //借助函数对象机制

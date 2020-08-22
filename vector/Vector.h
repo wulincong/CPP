@@ -35,7 +35,12 @@ public:
     ~Vector(){delete [] _elem;} //释放内部空间
     //只读访问接口
     void repeat(int [],int *);
-    bool Random( T (*Rand) ());
+    
+    void Random( T (*Rand) ()){
+        _size = _capacity;
+        for(int i = 0; i < _size;i++) _elem[i] = Rand();
+    }
+    
     Rank size() const {return _size;}
     bool empty() const {return !_size;}
     Rank find(T const& e) const {return find(e,0,_size);}
@@ -59,7 +64,9 @@ public:
     int deduplicate(); //无序去重
     int uniquify(); //有序去重
  // 遍历
-    void traverse ( void (*visit ) ( T ) ); //遍历（使用函数指针，只读或局部性修改）
+    void traverse(void (*visit ) ( T )){
+        for(int i = 0; i < _size;i++)visit(_elem[i]);
+    }
 //    template <typename VST> void traverse ( VST& ); //遍历（使用函数对象，可全局性修改）
 
 };
