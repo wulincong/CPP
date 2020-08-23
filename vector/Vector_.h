@@ -82,11 +82,7 @@ void Vector<T>::bubbleSort(Rank lo, Rank hi){
 }
 
 
-
-template <typename T>
-void Vector<T>::merge(Rank lo,Rank mi, Rank hi){
     
-}
 
 
 template <typename T>
@@ -144,11 +140,41 @@ void Vector<T>::shellSort(Rank lo,Rank hi){
 
 
 template <typename T>
+void Vector<T>::merge(T* aux,Rank lo,Rank mi,Rank hi){  // 0 2 4
+    for(int k = lo;k < hi; k++) aux[k] = _elem[k];      // 0 -> 3
+    Rank i = lo;  // i = 0
+    Rank j = mi+1;// j = 3
+    
+    for(int k = lo;k < hi; k++){  //0 -> 3
+    if      (i > mi)        _elem[k] = aux[j++];    //
+    else if (j > hi-1)      _elem[k] = aux[i++];    //
+    else if (aux[i]<aux[j]) _elem[k] = aux[i++];    //
+    else                    _elem[k] = aux[j++];    //
+    }
+
+}
+
+
+template <typename T>
+void Vector<T>::mergeSort(Rank lo,Rank hi){ //0 -> 4
+    if(hi <= lo) return ; 
+    T* aux = new T[_size];   // Rank 0 -> 3
+    Rank mid = lo + (hi - lo) / 2; // mid = 2
+    mergeSort(lo,mid);     // 0 -> 2
+    mergeSort(mid+1,hi);   // 3 -> 4
+    merge(aux,lo,mid,hi);  // 0 2 4
+
+}
+
+
+
+template <typename T>
 void Vector<T>::sort(Rank lo,Rank hi){
     //bubbleSort(lo,hi);
     //selectionSort(lo,hi);
     //insertSort(lo,hi);
-    shellSort(lo,hi);
+    //shellSort(lo,hi);
+    mergeSort(lo,hi);
 }
 
 
