@@ -1,5 +1,8 @@
 #include "Vector.h"
-
+#define exch(x,y) \
+    T temp = _elem[x]; \
+    _elem[x] = _elem[y]; \
+    _elem[y] = temp
 
 template <typename T>
 void Vector<T>::copyFrom (T const* A, Rank lo, Rank hi){
@@ -95,10 +98,10 @@ void Vector<T>::selectionSort(Rank lo,Rank hi){//选择排序
                 min = j;
             }
         }
-
-        T temp = _elem[min];
-        _elem[min] = _elem[i];
-        _elem[i] = temp;
+        exch(min,i);
+        //T temp = _elem[min];
+        //_elem[min] = _elem[i];
+        //_elem[i] = temp;
     }
 }
 
@@ -139,43 +142,95 @@ void Vector<T>::shellSort(Rank lo,Rank hi){
 }
 
 
-template <typename T>
-void Vector<T>::merge(T* aux,Rank lo,Rank mi,Rank hi){  // 0 2 4
-    for(int k = lo;k < hi; k++) aux[k] = _elem[k];      // 0 -> 3
-    Rank i = lo;  // i = 0
-    Rank j = mi+1;// j = 3
-    
-    for(int k = lo;k < hi; k++){  //0 -> 3
-    if      (i > mi)        _elem[k] = aux[j++];    //
-    else if (j > hi-1)      _elem[k] = aux[i++];    //
-    else if (aux[i]<aux[j]) _elem[k] = aux[i++];    //
-    else                    _elem[k] = aux[j++];    //
-    }
 
+template <typename T> //有序向量（区间）的归并
+void Vector<T>::merge ( Rank lo, Rank mi, Rank hi ) { //[lo, mi)和[mi, hi)各自有序，lo < mi < hi
+   Rank i = 0; T* A = _elem + lo; //合并后的有序向量A[0, hi - lo) = _elem[lo, hi)，就地
+   Rank j = 0, lb = mi - lo; T* B = new T[lb]; //前子向量B[0, lb) <-- _elem[lo, mi)
+   for ( Rank i = 0; i < lb; i++ ) B[i] = A[i]; //复制自A的前缀
+   Rank k = 0, lc = hi - mi; T* C = _elem + mi; //后子向量C[0, lc) = _elem[mi, hi)，就地
+   while ( ( j < lb ) && ( k < lc ) ) //反复地比较B、C的首元素
+      A[i++] = ( B[j] <= C[k] ) ? B[j++] : C[k++]; //将更小者归入A中
+   while ( j < lb ) //若C先耗尽，则
+      A[i++] = B[j++]; //将B残余的后缀归入A中——若B先耗尽呢？
+   delete [] B; //释放临时空间：mergeSort()过程中，如何避免此类反复的new/delete？
 }
+
+
+//template <typename T>
+
+//void Vector<T>::merge(Rank lo,Rank mi,Rank hi){  // 0 2 4
+//    T* A = _elem + lo;
+//    int lb = mi - lo; T* B = new T[lb];
+//    for(Rank i = 0; i < lb; B[i] = A[i++]);
+//    int lc = hi - mi; T* C = _elem + mi;
+//    for(Rank i = 0,j = 0,k = 0;(j < lb) || (k < lc);){
+//        if((j < lb) && (lc <= k || (B[j] <= C[k])) )A[i++] = B[j++];
+        
+//        if((k < lc) && (lb <= j || (C[k] <  B[j])) )A[i++] = C[k++];
+//    }
+//    delete [] B;  
+//
+//    for(int k = lo;k < hi; k++) aux[k] = _elem[k];      // 0 -> 3
+//    Rank i = lo;  // i = 0
+//    Rank j = mi+1;// j = 3
+    
+//    for(int k = lo;k < hi; k++){  //0 -> 3
+//    if      (i > mi)        _elem[k] = aux[j++];    //
+//    else if (j > hi-1)      _elem[k] = aux[i++];    //
+//    else if (aux[i]<aux[j]) _elem[k] = aux[i++];    //
+//    else                    _elem[k] = aux[j++];    //
+//    }
+//}
+
 
 
 template <typename T>
 void Vector<T>::mergeSort(Rank lo,Rank hi){ //0 -> 4
-    if(hi <= lo) return ; 
-    T* aux = new T[_size];   // Rank 0 -> 3
-    Rank mid = lo + (hi - lo) / 2; // mid = 2
-    mergeSort(lo,mid);     // 0 -> 2
-    mergeSort(mid+1,hi);   // 3 -> 4
-    merge(aux,lo,mid,hi);  // 0 2 4
-
+    if(hi-lo < 2) return ;
+    Rank mid = (lo + hi) >> 1; // mid = 2
+    mergeSort(lo,mid);     // 0 -> 2    
+    mergeSort(mid,hi);   // 3 -> 4   
+    merge(lo,mid,hi);  // 0 2 4    
 }
+
+
+template <typename T>
+Rank Vector<T>::partition(Rank lo,Rank hi){
+    int i = lo,j = hi;
+    T v = _elem[lo];
+    while(1){
+        while(_elem[++i] < v) if(i == hi) break;
+        while(_elem[++j] >=v) if(j == lo) break;
+        if(i >= j) break;
+        exch(i,j); 
+    }
+
+    exch(lo,j);
+    return j;
+}
+
+template <typename T>
+void Vector<T>::quickSort(Rank lo,Rank hi){
+    if(hi<=lo) return;
+    Rank j = partition(lo,hi);
+    quickSort(lo,j);
+    quickSort(j+1,hi);
+}
+
 
 
 
 template <typename T>
 void Vector<T>::sort(Rank lo,Rank hi){
     //bubbleSort(lo,hi);
-    //selectionSort(lo,hi);
+    selectionSort(lo,hi);
     //insertSort(lo,hi);
     //shellSort(lo,hi);
-    mergeSort(lo,hi);
+    //mergeSort(lo,hi);
+    //quickSort(lo,hi);
 }
+
 
 
 template <typename T> T & Vector<T>::operator[]( Rank r) {return _elem[r];}
