@@ -9,7 +9,7 @@ using namespace std;
 template class Vector<int>;
 
 int RandInt(){
-    return rand()>>29;
+    return rand()>>27;
 }
 
 
@@ -39,7 +39,7 @@ int main(int argc, char *argv[]){
         int size = atoi(argv[1]);
         Vector<int> v = Vector<int>(size);
         v.Random(Rand);
-        v.traverse(visit);
+//        v.traverse(visit);
         v.sort();
         printf("\n");
         v.traverse(visit);

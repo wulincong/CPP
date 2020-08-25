@@ -195,24 +195,43 @@ void Vector<T>::mergeSort(Rank lo,Rank hi){ //0 -> 4
 }
 
 
+
+/*
 template <typename T>
 Rank Vector<T>::partition(Rank lo,Rank hi){
     int i = lo,j = hi;
     T v = _elem[lo];
     while(1){
         while(_elem[++i] < v) if(i == hi) break;
-        while(_elem[++j] >=v) if(j == lo) break;
+        while(_elem[--j] >=v) if(j == lo) break;
         if(i >= j) break;
         exch(i,j); 
     }
-
     exch(lo,j);
     return j;
+}
+*/
+
+
+template <typename T>
+Rank Vector<T>::partition(Rank lo,Rank hi){  //LGU
+    T v = _elem[lo];
+    int mi = lo;
+    for(int k = lo+1;k<hi;k++){
+        if(_elem[k] < v){
+            mi++;
+            exch(mi,k);
+        }
+    }
+    exch(lo,mi);
+    return mi;
+
+
 }
 
 template <typename T>
 void Vector<T>::quickSort(Rank lo,Rank hi){
-    if(hi<=lo) return;
+    if(hi - lo < 2) return;
     Rank j = partition(lo,hi);
     quickSort(lo,j);
     quickSort(j+1,hi);
@@ -224,11 +243,11 @@ void Vector<T>::quickSort(Rank lo,Rank hi){
 template <typename T>
 void Vector<T>::sort(Rank lo,Rank hi){
     //bubbleSort(lo,hi);
-    selectionSort(lo,hi);
+    //selectionSort(lo,hi);
     //insertSort(lo,hi);
     //shellSort(lo,hi);
     //mergeSort(lo,hi);
-    //quickSort(lo,hi);
+    quickSort(lo,hi);
 }
 
 
