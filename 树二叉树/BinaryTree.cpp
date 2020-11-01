@@ -3,7 +3,7 @@
 #include "../xulun/Status.h"
 
 typedef struct BTNode{
-	char *data;
+	char data;
 	struct BTNode *lchild;
 	struct BTNode *rchild;
 } BTNode,*BTree;
@@ -12,29 +12,28 @@ typedef struct BTNode{
 Status InitBiTree(BTree &T){ 
 	//Init empty Binary Tree
 	if(! (T = (BTNode *)malloc(sizeof(BTNode)))) exit(OVERFLOW);
-	T->data = "";
+	T->data = ' ';
 	T->lchild = NULL;
 	T->rchild = NULL;
 	return OK;
 }
 
-Status CreateBiTree(BTree &T,FILE &fp){
-	char *ch;
-	
-	scanf("%s",&ch);
-	printf("%s",&ch);
-	if(!ch) T = NULL;
+Status CreateBiTree(BTree &T){
+	char ch;
+	ch = getchar();
+	if(ch == '^') T = NULL;
 	else{
 		if(! (T = (BTNode *)malloc(sizeof(BTNode)))) exit(OVERFLOW);
 		T->data = ch;
-		CreateBiTree(T->lchild,fp);
-		CreateBiTree(T->rchild,fp);
+		CreateBiTree(T->lchild);
+		CreateBiTree(T->rchild);
 	}
 	return OK;
 }
 
 Status Visit(BTree & p){
-	printf("%c",& p->data);	
+	putchar(p->data);	
+	return OK;
 } 
 
 void preorder(BTree &T){
@@ -45,12 +44,62 @@ void preorder(BTree &T){
 	}
 }
 
+int GetDepth(BTree &T){
+	if(T){
+		int LTreeDepth = GetDepth(T->lchild);
+		int RTreeDepth = GetDepth(T->rchild);
+		return (LTreeDepth > RTreeDepth ? LTreeDepth:RTreeDepth)+1;
+	}
+	return 0;
+}
+
+Status Search(BTree &T,BTree &N,char e){
+	if(T && T->data == e) {
+		N = T;
+		return OK;
+	}
+	else {
+		if(Search(T->lchild,N,e)) return OK;
+		if(Search(T->rchild,N,e)) return OK;
+	}
+	return ERROR;
+}
+
+void level(BTree &T){
+	int front,rear;
+	front = rear = 0;
+	BTNode *que[100];
+	BTree q;
+	if(T != NULL){
+		rear = (rear+1)%100; que[rear] = T;  //Init the first node 
+		while(front != rear){
+			front = (front + 1) % 100; q = que[front]; 
+			Visit(q);
+			if(q->lchild){
+				rear = (rear + 1) % 100;que[rear] = q->lchild;
+			}
+			
+			if(q->rchild){
+				rear = (rear + 1) % 100;que[rear] = q->rchild;
+			}
+		}
+	}
+}
+
 int main(){
 	BTree T;
 	FILE *fp;
 	fp = fopen("Tree.txt","r");
 	InitBiTree(T);	
-	CreateBiTree(T,fp);
+	CreateBiTree(T);
 	preorder(T);
+	level(T);
+	int Depth = GetDepth(T);
+	printf("\nThe depth of the BinaryTree is %d\n",Depth);
+
+	char e = 'G';
+	BTree N = NULL;
+	//if(Search(T,N,e)) printf("Find it!\n");
+
 	return 0;
 }
