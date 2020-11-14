@@ -6,10 +6,10 @@
 #include <stdarg.h>
 
 
-//#include "../绪论/Status.h"
-#include "Status.h"
+#include "../xulun/Status.h"
+// #include "Status.h"
 
-#include "Status.h"
+// #include "Status.h"
 
 
 //#include "Scanf.c"
@@ -18,14 +18,42 @@
 
 #define INFINITY INT_MAX
 #define MAX_VERTEX_NUM 20
+#define maxSize 100
 
 typedef enum GraphKind {DG = 1, DN, UDG, UDN} GraphKind;
-typedef struct {} InfoType;
+typedef struct {
+	int distance;
+	int time;
+	int fare;
+} InfoType;
+
+
+typedef struct ArcNode
+{
+	int adjvex;     //  指向的顶点
+	struct ArcNode *nextarc;   //指向下一条边
+	InfoType Info;  //  边存储的信息
+}ArcNode;   //边
+
+//定义顶点
+typedef struct 
+{
+	char *city;   //城市
+ 	ArcNode *firstarc;   //顶点的第一条边
+}VNode;
+
+typedef struct 
+{
+	VNode adjlist[maxSize];
+	int n,e;//顶点数和边数
+}AGraph;
+
+
 typedef int VRType;
 typedef struct ArcCell{
 	VRType adj;       // 0 1 表示有无边 
-	//InfoType info;        //边存储的信息 
-} ArcCell;
+	InfoType info;        //边存储的信息 
+} ArcCell;  //边
 
 typedef ArcCell AdjMatrix[MAX_VERTEX_NUM+1][MAX_VERTEX_NUM+1];
 typedef int VertexType_M;
