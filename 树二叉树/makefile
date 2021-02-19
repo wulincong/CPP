@@ -1,17 +1,9 @@
-CC = g++ -I ../绪论 -I ../栈和队列 
-target = SeqBinaryTree_main.exe \
-		SeqBinaryTree.o\
-		BinaryTree.o\
-all:$(target)
+target = BinaryTree.exe
 
-SeqBinaryTree_main.exe: SeqBinaryTree_main.o SeqBinaryTree.o ../绪论/Scanf.o 
-	$(CC) ../绪论/Scanf.o  SeqBinaryTree.o SeqBinaryTree_main.o -o SeqBinaryTree_main.exe
-
-SeqBinaryTree_main.o: SeqBinaryTree_main.cpp 
-	$(CC) SeqBinaryTree_main.cpp -c -o SeqBinaryTree_main.o
-
-SeqBinaryTree.o: SeqBinaryTree.cpp
-	$(CC) SeqBinaryTree.cpp -c -o SeqBinaryTree.o 
+BinaryTree:BinaryTree.cpp
+	$(CC) BinaryTree.cpp -o BinaryTree.exe
 
 clean:
 	rm -f $(target)
+
+
