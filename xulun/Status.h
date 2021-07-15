@@ -20,8 +20,8 @@ typedef int Status;
 
 #define Wait(x)\
 {\
-    double _Loop_num_;\
-    for (Loop_Num = 0.01 _Loop_Num = 0; _Loop_Num < 100000.0*x; _Loop_Num+=0.01)\
+    double _Loop_Num_;\
+    for (_Loop_Num_ = 0.01; _Loop_Num_ < 100000.0 * x; _Loop_Num_ += 0.01)\
     ;\
 }
 

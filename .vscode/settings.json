@@ -12,7 +12,9 @@
         "deque": "cpp",
         "string": "cpp",
         "vector": "cpp",
-        "functional": "cpp"
+        "functional": "cpp",
+        "maze.h": "c",
+        "system_error": "c"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }

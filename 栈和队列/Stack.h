@@ -1,23 +1,13 @@
-#ifndef _STACK_H
-#define _STACK_H
+#include "SequenceStack.h"
 
-#include <stdio.h>
-#include <stdlib.h>
-#include "../绪论/Status.h"
+Status InitStack_Sq(SqStack *S);
+Status DestroyStack_Sq(SqStack *S);
+Status ClearStack_Sq(SqStack *S);
+Status StackEmpty_Sq(SqStack S);
+int StackLength_Sq(SqStack S);
+Status GetTop_Sq(SqStack S, SElemType_Sq *e);
+Status Push_Sq(SqStack *S, SElemType_Sq e);
+Status Pop_Sq(SqStack *S, SElemType_Sq *e);
 
-#define datatype int
-
-//SqStack 
-typedef struct {
-	datatype *data;
-	int MaxSize;
-	int top;
-} SqStack;
-
-//LNode 
-typedef struct LNode{ 
-	int data;
-	struct LNode *next;
-} LNode;
-
-#endif
+Status StackTraverse_Sq(SqStack S, void(Visit)(SElemType_Sq));
+//访问栈
