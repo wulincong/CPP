@@ -1,5 +1,0 @@
-env = Environment(CPPPATH = ['F:/project/CPP/xulun', '.'])
-#Program("main.c")
-env.Program(['进制转换.c','SequenceStack.c'])
-env.Program(['LineEdit.c','SequenceStack.c'])
-env.Program(['Maze_main.c','Maze.c','SequenceStack.c'])
